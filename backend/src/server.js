@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 5001
 app.use(express.json());
 app.use(cookieParser());
 
-app.use("/api/users", userRoutes)
+app.use("/api/users", userRoutes);
 
 connectDb().then(() => {
     app.listen(PORT, () => {

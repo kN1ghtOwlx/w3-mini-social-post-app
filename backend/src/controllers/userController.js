@@ -29,13 +29,41 @@ const signupUser = async (req, res) => {
                 email: newUser.email
             });
         } else {
-            res.status(400).json({message: "Invalid user data"})
+            res.status(400).json({message: "Invalid user data!"})
         }
 
     } catch (error) {
         res.status(500).json({message: error.message});
-        console.log("Error in signupUser: ", err.message)
+        console.log("Error in signupUser: ", error.message)
     }
 }
 
-export {signupUser};
+const loginUser = async (req, res) => {
+    try {
+        const {email, password} = req.body;
+
+        const user = await User.findOne({email});
+        if(!user){
+            return res.status(400).json({message: "User not found!"})
+        }
+
+        const isPasswordCorrect = await bcrypt.compare(password, user.password);
+        if(!isPasswordCorrect){
+            return res.status(400).json({message: "Invalid password!!"})
+        }
+
+        generateTokenAndSetCookies(user._id, res);
+
+        res.status(200).json({
+            _id: user._id,
+            username: user.username,
+            email: user.email
+        })
+
+    } catch (error) {
+        res.status(500).json({message: error.message});
+        console.log("Error in loginUser: ", error.message)
+    }
+}
+
+export {signupUser, loginUser};
