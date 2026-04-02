@@ -33,4 +33,15 @@ const createPost = async (req, res) => {
     }
 }
 
-export {createPost};
+const getPost = async (req, res) => {
+    try {
+        const post = await Post.find().sort({createdAt: -1});
+        res.status(200).json(post);
+
+    } catch (error) {
+        res.status(500).json({message: error.message});
+        console.log("Error in getPost: ", error.message);
+    }
+}
+
+export {createPost, getPost};
