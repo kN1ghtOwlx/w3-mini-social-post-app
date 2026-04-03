@@ -8,17 +8,23 @@ import AuthPage from './pages/AuthPage';
 function App() {
 
   const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() =>{
     const getCurrentUser = async () => {
       try {
-        const res = await api.get("/user/me");
+        const res = await api.get("/users/me");
         setCurrentUser(res.data)
       } catch (error) {
         setCurrentUser(null);
+      } finally{
+        setLoading(false);
       }
-    }
-  })
+    };
+    getCurrentUser();
+  }, [])
+
+  if (loading) return <p className="text-center mt-5">Loading...</p>;
 
   return (
 

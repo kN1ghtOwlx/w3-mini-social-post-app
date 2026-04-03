@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Container, Spinner } from 'react-bootstrap';
+import AppNavbar from '../components/AppNavbar';
 import PostCard from '../components/PostCard';
 import api from '../api/axios';
 
@@ -24,6 +25,7 @@ const HomePage = ({ currentUser, setCurrentUser }) => {
 
   return (
     <>
+      <AppNavbar currentUser={currentUser} setCurrentUser={setCurrentUser} />
       <Container style={{ maxWidth: '680px' }}>
         {loading ? (
           <div className="text-center"><Spinner animation="border" /></div>
