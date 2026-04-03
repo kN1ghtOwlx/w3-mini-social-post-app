@@ -19,6 +19,7 @@ const AuthPage = ({ setCurrentUser }) => {
     try {
       const endpoint = isLogin ? '/users/login' : '/users/signup';
       const res = await api.post(endpoint, form);
+      localStorage.setItem('token', res.data.token);
       setCurrentUser(res.data);
       navigate('/feed');
     } catch (err) {

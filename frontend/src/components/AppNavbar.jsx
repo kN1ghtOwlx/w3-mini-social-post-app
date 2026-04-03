@@ -8,6 +8,7 @@ const AppNavbar = ({ currentUser, setCurrentUser }) => {
   const handleLogout = async () => {
     try {
       await api.post('/users/logout');
+      localStorage.removeItem('token');
       setCurrentUser(null);
       navigate('/');
     } catch (error) {

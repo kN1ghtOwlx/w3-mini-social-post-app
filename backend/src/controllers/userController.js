@@ -21,12 +21,12 @@ const signupUser = async (req, res) => {
 
         if(newUser){
 
-            generateTokenAndSetCookies(newUser._id, res);
-
+            const token = generateTokenAndSetCookies(newUser._id, res);
             res.status(201).json({
-                _id: newUser._id,
-                username: newUser.username,
-                email: newUser.email
+              _id: newUser._id,
+              username: newUser.username,
+              email: newUser.email,
+              token // ✅ send token in response
             });
         } else {
             res.status(400).json({message: "Invalid user data!"})
@@ -52,12 +52,12 @@ const loginUser = async (req, res) => {
             return res.status(400).json({message: "Invalid password!!"})
         }
 
-        generateTokenAndSetCookies(user._id, res);
-
+        const token = generateTokenAndSetCookies(user._id, res);
         res.status(200).json({
             _id: user._id,
             username: user.username,
-            email: user.email
+            email: user.email,
+            token
         })
 
     } catch (error) {
