@@ -76,4 +76,13 @@ const logoutUser = (req, res) => {
     }
 }
 
-export {signupUser, loginUser, logoutUser};
+const getMeUser = async (req, res) => {
+    try {
+        res.status(200).json(req.user);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+        console.log("Error in getMeUSer: ", error.message);
+    }
+}
+
+export {signupUser, loginUser, logoutUser, getMeUser};

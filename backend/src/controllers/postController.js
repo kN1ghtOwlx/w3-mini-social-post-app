@@ -61,7 +61,7 @@ const likeUnlikePost = async (req, res) => {
         } else{
             post.likes.push(userId);
             await post.save()
-            res.status(500).json({message: "Post liked!"})
+            res.status(200).json({message: "Post liked!"})
         }
 
     } catch (error) {
