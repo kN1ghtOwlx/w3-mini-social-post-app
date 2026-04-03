@@ -3,6 +3,7 @@ import { Container, Spinner } from 'react-bootstrap';
 import AppNavbar from '../components/AppNavbar';
 import PostCard from '../components/PostCard';
 import api from '../api/axios';
+import CreatePost from '../components/CreatePost';
 
 const HomePage = ({ currentUser, setCurrentUser }) => {
   const [feed, setFeed] = useState([]);
@@ -27,6 +28,7 @@ const HomePage = ({ currentUser, setCurrentUser }) => {
     <>
       <AppNavbar currentUser={currentUser} setCurrentUser={setCurrentUser} />
       <Container style={{ maxWidth: '680px' }}>
+        <CreatePost onPostCreated={fetchFeed} />
         {loading ? (
           <div className="text-center"><Spinner animation="border" /></div>
         ) : (
